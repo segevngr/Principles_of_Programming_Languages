@@ -1,0 +1,45 @@
+
+
+(define empty?
+  (lambda (lst)
+    (eq? lst '())))
+
+
+ (define last-element
+  (lambda (lst)
+    (if (empty? (cdr lst))
+        (car lst)
+        (last-element (cdr lst)))))
+
+(define power
+  (lambda (n1 n2)
+    (if (= n2 0)
+        1
+        (* (power n1 (- n2 1)) n1))))
+
+(define sum-lst-power
+  (lambda (lst n)
+    (if (empty? lst)
+        0
+        (+ (power(car lst) n) (sum-lst-power (cdr lst) n)))))
+  
+(define accumlator
+  (lambda (lst acc)
+    (if (empty? lst)
+         acc
+         (accumlator (cdr lst) (+ (* acc 10) (car lst))))))
+  
+(define num-from-digits
+  (lambda (lst)
+    (accumlator lst 0)))
+
+(define size
+  (lambda (lst acc)
+    (if (empty? lst)
+         acc
+         (size (cdr lst) (+ 1 acc)))))
+  
+(define is-narcissistic
+  (lambda (lst)
+    (= (num-from-digits lst) (sum-lst-power lst (size lst 0)))))
+ 
